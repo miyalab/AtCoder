@@ -2,6 +2,7 @@
 
 using namespace std;
 
+// 掲示板データ
 const string num[10][5] =
 {
     {
@@ -93,6 +94,7 @@ int main()
             if(s[3].substr(4*i,4) != num[j][3]) continue;
             if(s[4].substr(4*i,4) != num[j][4]) continue;
             ans = ans + to_string(j);
+            break;
         }
     }
     cout << ans << endl;

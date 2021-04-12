@@ -18,6 +18,7 @@ int main()
     cin >> N >> M >> Q;
     vector<vector<int>> ans(N+1,vector<int>(M+1));
 
+    // クエリ入力
     for(int i=0; i<Q; i++){
         cin >> s;
         if(s==1){
@@ -32,8 +33,8 @@ int main()
         }
         else{
             cin >> n >> m;
-            ans[n][m] = 1;
-            ans[0][m] += 1;
+            ans[n][m] = 1;      // 解答フラグ
+            ans[0][m] += 1;     // 解答者数保存
         }
     }
 }
