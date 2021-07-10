@@ -4,6 +4,5 @@ using namespace std;
 
 int main()
 {
-    long n,y;
-    cin >> n >> y;
+    
 }
