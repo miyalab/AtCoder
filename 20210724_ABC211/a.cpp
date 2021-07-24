@@ -11,4 +11,7 @@ int main()
 	// 表示精度変更
 	cout << fixed << setprecision(16);
 
+	double a, b;
+	cin >> a >> b;
+	cout << (a-b)/3 + b << endl;
 }

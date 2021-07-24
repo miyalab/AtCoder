@@ -11,4 +11,12 @@ int main()
 	// 表示精度変更
 	cout << fixed << setprecision(16);
 
+	int n;
+	string s;
+	cin >> n;
+	cin >> s;
+
+	int index = s.find("1");
+	if(index % 2 == 0) cout << "Takahashi" << endl;
+	else cout << "Aoki" << endl;
 }

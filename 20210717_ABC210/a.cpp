@@ -11,4 +11,14 @@ int main()
 	// 表示精度変更
 	cout << fixed << setprecision(16);
 
+	int n,a,x,y;
+	cin >> n >> a >> x >> y;
+	
+	int ans = 0;
+	for(int i=0;i<n;i++){
+		if(i<a) ans += x;
+		else ans += y;
+	}
+
+	cout << ans << endl;
 }
