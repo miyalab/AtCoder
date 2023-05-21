@@ -3,6 +3,11 @@
 using namespace std;
 
 const std::string KEYWORD = "snuke";
+const std::pair<int,int> CURSORS[] = {
+	{-1,-1}, {-1, 0}, {-1, 1},
+	{ 0,-1},          { 0, 1},
+	{ 1,-1}, { 1, 0}, { 1, 1}
+};
 
 int main()
 {
@@ -19,60 +24,26 @@ int main()
 	for(int i=0; i<h; i++) cin >> s[i];
 
 	std::pair<std::pair<int, int>, std::pair<int, int>> ans = {{0,0}, {0,0}};
-	for(int i=0; i<h && ans.second.first == 0 && ans.second.second == 0; i++){
-		for(int j=0; j<w && ans.second.first == 0 && ans.second.second == 0; j++){
-			//std::cout << i << " " << j << std::endl;
-			if(s[i][j] == 's'){
-				std::string word;
-
-				// 左->右
-				word = "s";
-				for(int k=1; k<5 && j+k<w; k++) word += s[i][j+k];
-				if(word == KEYWORD) ans.second = {0,1};
-
-				// 右->左
-				word = "s";
-				for(int k=1; k<5 && j-k>=0; k++) word += s[i][j-k];
-				if(word == KEYWORD) ans.second = {0,-1};
-
-				// 上->下
-				word = "s";
-				for(int k=1; k<5 && i+k<h; k++) word += s[i+k][j];
-				if(word == KEYWORD) ans.second = {1,0};
-
-				// 下->上
-				word = "s";
-				for(int k=1; k<5 && i-k>=0; k++) word += s[i-k][j];
-				if(word == KEYWORD) ans.second = {-1,0};
-
-				// 右上
-				word = "s";
-				for(int k=1; k<5 && i-k>=0 && j+k<w; k++) word += s[i-k][j+k];
-				if(word == KEYWORD) ans.second = {-1,1};
-
-				// 右下
-				word = "s";
-				for(int k=1; k<5 && i+k<h && j+k<w; k++) word += s[i+k][j+k];
-				if(word == KEYWORD) ans.second = {1,1};
-
-				// 左上
-				word = "s";
-				for(int k=1; k<5 && i-k>=0 && j-k>=0; k++) word += s[i-k][j-k];
-				if(word == KEYWORD) ans.second = {-1,-1};
-
-				// 左下
-				word = "s";
-				for(int k=1; k<5 && i+k<h && j-k>=0; k++) word += s[i+k][j-k];
-				if(word == KEYWORD) ans.second = {1,-1};
-
-				if(ans.second.first != 0|| ans.second.second != 0) ans.first = {i,j};
-			}  
+	for(int i=0; i<h && ans.first.first==0; i++){
+		for(int j=0; j<w && ans.first.first==0; j++){
+			for(const auto &cursor: CURSORS){
+				bool word_check = true;
+				for(int k=0, size=KEYWORD.size(); k<size && word_check; k++){
+					const int y = i+k*cursor.first;
+					const int x = j+k*cursor.second;
+					if(y<0 || h<=y || x<0 || w<=x) word_check = false;
+					else if(s[y][x] != KEYWORD[k]) word_check = false;
+				}
+				if(word_check){
+					ans.first = {i+1,j+1};
+					ans.second = cursor;
+					break;
+				}
+			}
 		}
 	}
-	// std::cout << ans.first.first << " " << ans.first.second << std::endl;
-	// std::cout << ans.second.first << " " << ans.second.second << std::endl;
 	
-	for(int i=0; i<5; i++){
-		std::cout << ans.first.first + i*ans.second.first + 1 << " " << ans.first.second + i*ans.second.second + 1 << std::endl;
+	for(int i=0, size=KEYWORD.size(); i<size; i++){
+		std::cout << ans.first.first + i*ans.second.first << " " << ans.first.second + i*ans.second.second << std::endl;
 	}
 }
