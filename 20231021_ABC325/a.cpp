@@ -11,4 +11,8 @@ int main()
 	// 表示精度変更
 	cout << fixed << setprecision(16);
 
+	string s, t;
+	cin >> s >> t;
+	cout << s << " san" << endl;
+
 }
